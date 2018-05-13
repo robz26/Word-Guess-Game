@@ -9,6 +9,7 @@ var blanks = [];
 var Correct = [];
 var Wrong = [];
 var wins = 0;
+var Music;
 var GameOver = true;
 var remainingGuesses = 10;
 const Tries = 7; // Number of Tries
@@ -220,3 +221,29 @@ function Loser() {
     document.getElementById("jumbo").style.display = "none";
     document.getElementById("Winner").style.display = "none";
 }
+var soundFile = document.createElement("audio");
+soundFile.preload = "auto";
+
+//Load the sound file (using a source element for expandability)
+var src = document.createElement("source");
+var volume;
+src.src = "Vermillion.mp3";
+soundFile.appendChild(src);
+
+//Load the audio tag
+//It auto plays as a fallback
+soundFile.load();
+soundFile.volume = 1;
+soundFile.play();
+
+//Plays the sound
+function play() {
+   //Set the current time for the audio file to the beginning
+   soundFile.currentTime = 0.01;
+   soundFile.volume = 1;
+
+   //Due to a bug in Firefox, the audio needs to be played after a delay
+   setTimeout(function(){soundFile.play();},1);
+   setTimeout(play, 62000);
+}
+play();
