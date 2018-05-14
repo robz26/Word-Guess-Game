@@ -2,7 +2,7 @@
 const Words = ['pikachu', 'gengar', 'bulbasaur', 'cubone',
     'charmander', 'squirtle', 'eevee', 'butterfree', 'diglett',
     'onyx', 'snorlax', 'zapdos', 'moltres', 'articuno', 'arcanine',
-    'mewtwo', 'rhydon', 'dragonite', 'jigglypuff'];
+    'mewtwo', 'rhydon', 'dragonite', 'jigglypuff', 'mrmime'];
 var randomWord = Math.floor(Math.random() * Words.length);
 var ChosenWord = Words[randomWord];
 var blanks = [];
@@ -12,7 +12,7 @@ var wins = 0;
 var Music;
 var GameOver = true;
 var remainingGuesses = 10;
-const Tries = 7; // Number of Tries
+const Tries = 9; // Number of Tries
 
 // defining html variables
 var dispWins = document.getElementsByClassName("Wins");
@@ -46,18 +46,18 @@ document.onkeyup = function (event) {
 
             if (blanks.join('') == ChosenWord) {
                 wins++;
-                dispWins[0].innerHTML = "Wins: " + wins;
-                setTimeout(Winner, 1000);
+                dispWins[0].innerHTML = "Wins:  " + wins;
+                setTimeout(Winner, 700);
                 GameOver = true;
-                setTimeout(PressSpaceToStart, 3000);
+                setTimeout(PressSpaceToStart, 2000);
             }
         }
         else {
             if (Wrong.indexOf(UserChoice) === -1) {
                 Wrong.push(UserChoice);
-                dispLettersUsed[0].innerHTML = "Wrong Letters: " + Wrong.join(' ');
+                dispLettersUsed[0].innerHTML = "Wrong Letters:  " + Wrong.join(' ');
                 remainingGuesses--;
-                dispGuessesLeft[0].innerHTML = "Guesses Left: " + remainingGuesses;
+                dispGuessesLeft[0].innerHTML = "Guesses Left:  " + remainingGuesses;
                 ckLoss();
             }
         }
@@ -110,8 +110,8 @@ function resetGame() {
     GameOver = false;
     dispChosenWord[0].innerHTML = blanks.join(' ');
     // Hide game over and win images/text
-    document.getElementById("main").style.display = "block";
-    document.getElementById("jumbo").style.display = "none";
+    document.getElementById("main").style.display = "none";
+    document.getElementById("jumbo").style.display = "block";
     document.getElementById("Winner").style.display = "none";
     document.getElementById("Loser").style.display = "none";
     dispGuessesLeft[0].innerHTML = "Guesses Left: " + remainingGuesses;
@@ -123,23 +123,23 @@ function ckLoss() {
     if (remainingGuesses <= 0) {
         GameOver = true;
         Loser();
-        setTimeout(PressSpaceToStart, 3000);
+        setTimeout(PressSpaceToStart, 2000);
     }
 }
 
 //Intro Screen and set to Space key to start
-//something is still triggering reset with spacebar during gameplay
 function PressSpaceToStart() {
-    document.getElementById("jumbo").style.display = "block";
-    document.getElementById("main").style.display = "none";
-    document.getElementById("Winner").style.display = "none";
-    document.getElementById("Loser").style.display = "none";
-    if (GameOver === true) {
-        document.body.onkeyup = function (e) {
-            if (e.keyCode == 32) {
-                resetGame();
-            }
+    document.body.onkeyup = function (e) {
+        if (e.keyCode == 32) {
+            document.getElementById("jumbo").style.display = "none";
+            document.getElementById("main").style.display = "block";
+            document.getElementById("Winner").style.display = "none";
+            document.getElementById("Loser").style.display = "none";
         }
+    }
+   
+    if (GameOver === true) {
+        resetGame();
     }
 }
 
@@ -203,6 +203,9 @@ document.getElementById("Hint").onclick = function () {
         case "jigglypuff":
             document.getElementById("Pokemon").src = "../Word-Guess-Game/assets/images/jiggly.jpg";
             break;
+        case "mrmime":
+            document.getElementById("Pokemon").src = "../Word-Guess-Game/assets/images/mrmime.jpg";
+            break;
         default:
             console.log("default");
     }
@@ -221,6 +224,8 @@ function Loser() {
     document.getElementById("jumbo").style.display = "none";
     document.getElementById("Winner").style.display = "none";
 }
+
+//BGM section
 var soundFile = document.createElement("audio");
 soundFile.preload = "auto";
 
