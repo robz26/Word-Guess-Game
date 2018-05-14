@@ -34,7 +34,8 @@ Display();
 PressSpaceToStart();
 
 document.onkeyup = function (event) {
-    UserChoice = event.key;
+    UserChoice = event.key.toLowerCase();
+    
     if (event.keyCode >= 65 && event.keyCode <= 90) //check if entry is a-z
     {
         if (ChosenWord.indexOf(UserChoice) > -1) //correct guess
@@ -49,7 +50,7 @@ document.onkeyup = function (event) {
                 dispWins[0].innerHTML = "Wins:  " + wins;
                 setTimeout(Winner, 700);
                 GameOver = true;
-                setTimeout(PressSpaceToStart, 2000);
+                setTimeout(PressSpaceToStart, 2500);
             }
         }
         else {
@@ -79,7 +80,7 @@ function evaluateGuess(letter) {
         }
     }
 
-    // if there are no indicies, remove a guess and update the hangman image
+    // if there are no indicies remove a guess
     if (positions.length <= 0) {
         remainingGuesses--;
     }
@@ -123,7 +124,7 @@ function ckLoss() {
     if (remainingGuesses <= 0) {
         GameOver = true;
         Loser();
-        setTimeout(PressSpaceToStart, 2000);
+        setTimeout(PressSpaceToStart, 2500);
     }
 }
 
