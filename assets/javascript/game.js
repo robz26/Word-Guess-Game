@@ -136,6 +136,7 @@ function PressSpaceToStart() {
             document.getElementById("main").style.display = "block";
             document.getElementById("Winner").style.display = "none";
             document.getElementById("Loser").style.display = "none";
+            play();
         }
     }
    
@@ -239,8 +240,8 @@ soundFile.appendChild(src);
 //Load the audio tag
 //It auto plays as a fallback
 soundFile.load();
-soundFile.volume = 1;
-soundFile.play();
+//soundFile.volume = 1;
+//soundFile.play();
 
 //Plays the sound
 function play() {
@@ -250,6 +251,5 @@ function play() {
 
    //Due to a bug in Firefox, the audio needs to be played after a delay
    setTimeout(function(){soundFile.play();},1);
-   setTimeout(play, 62000);
+   //setTimeout(play, 62000);
 }
-play();
